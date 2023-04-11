@@ -1,0 +1,45 @@
+template: true
+valuesFilePath: ./values.yml
+
+resources:
+  - name: go_app_gitrepo
+    type: GitRepo
+    configuration:
+      path: {{ .Values.repoPath }}
+      gitProvider: {{ .Values.gitIntegration }}
+      branches:
+        include: ^{{ .Values.mainBranch }}$
+      cloneProtocol: https
+
+pipelines:
+  - name: go_app
+    configuration:
+      jfrogCliVersion: 2
+      runtime:
+        type: image
+        image:
+          custom:
+            name: releases-docker.jfrog.io/jfrog/pipelines-u18node
+            tag: "16"
+            autoPull: true
+      environmentVariables:
+        readOnly:
+          TASK_NAME: docker_build
+          TASK_VERSION: 0.0.1
+          TASK_REPOSITORY: pipelines-tasks-local
+    steps:
+      - name: test_docker_build
+        type: Bash
+        configuration:
+          inputResources:
+            - name: go_app_gitrepo
+          integrations:
+            - name: {{ .Values.artIntegration }}
+        execution:
+          onExecute:
+            - task: docker_build@v0.0.1
+              id: docker_build_go_app
+              input:
+                resourceName: go_app_gitrepo
+                dockerFileLocation: $res_go_app_gitrepo_resourcePath
+                dockerImage: "sample-go:latest"
