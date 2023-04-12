@@ -37,6 +37,7 @@ pipelines:
             - name: {{ .Values.artIntegration }}
         execution:
           onExecute:
+            - echo $res_go_app_gitrepo_resourcePath
             - task: docker_build@v0.0.1
               id: docker_build_go_app
               input:
