@@ -43,5 +43,5 @@ pipelines:
                 resourceName: "go_app_gitrepo"
                 dockerImage: "sample-go:latest"
                 dockerFileLocation: ""
+                dockerFileName: ""
                 optionalParams: ""
-
