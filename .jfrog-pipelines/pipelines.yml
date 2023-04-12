@@ -41,5 +41,4 @@ pipelines:
               id: docker_build_go_app
               input:
                 resourceName: go_app_gitrepo
-                dockerFileLocation: $res_go_app_gitrepo_resourcePath
                 dockerImage: "sample-go:latest"
