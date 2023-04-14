@@ -46,4 +46,6 @@ pipelines:
                 DockerFileLocation: ""
                 DockerFileName: ""
                 OptionalParams: ""
+                AutoPublishBuildInfo: "true"
+                XrayScan: "true"
             - docker image ls
