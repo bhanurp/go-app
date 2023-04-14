@@ -41,8 +41,9 @@ pipelines:
             - task: docker_build@v0.0.1
               id: docker_build_go_app
               input:
-                resourceName: "go_app_gitrepo"
-                dockerImage: "sample-go:latest"
-                dockerFileLocation: ""
-                dockerFileName: ""
-                optionalParams: ""
+                ResourceName: "go_app_gitrepo"
+                DockerImage: "sample-go:latest"
+                DockerFileLocation: ""
+                DockerFileName: ""
+                OptionalParams: ""
+            - docker image ls
