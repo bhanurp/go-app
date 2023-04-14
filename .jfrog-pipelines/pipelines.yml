@@ -42,7 +42,7 @@ pipelines:
               id: docker_build_go_app
               input:
                 ResourceName: "go_app_gitrepo"
-                DockerImage: "sample-go:latest"
+                DockerImage: "pipelines-docker:latest"
                 DockerFileLocation: ""
                 DockerFileName: ""
                 OptionalParams: ""
