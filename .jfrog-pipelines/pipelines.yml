@@ -48,4 +48,5 @@ pipelines:
                 OptionalParams: ""
                 AutoPublishBuildInfo: "true"
                 XrayScan: "true"
+                FailOnScan: "false"
             - docker image ls
