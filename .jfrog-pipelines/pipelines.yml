@@ -38,11 +38,19 @@ pipelines:
         execution:
           onExecute:
             - echo $res_go_app_gitrepo_resourcePath
+            - task: docker_build_test@v0.0.1
+              id: docker_build_only
+              input:
+                ResourceName: "go_app_gitrepo"
+                DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:0.0.1"
             - task: docker_build@v0.0.1
               id: docker_build_go_app
               input:
                 ResourceName: "go_app_gitrepo"
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
+                DockerFileLocation: ""
+                DockerFileName: ""
+                OptionalParams: ""
                 AutoPublishBuildInfo: "true"
                 XrayScan: "true"
                 FailOnScan: "false"
