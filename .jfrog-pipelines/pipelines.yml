@@ -43,7 +43,7 @@ pipelines:
                 ResourceName: "go_app_gitrepo"
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
             - task: docker_push@v0.0.1
-              id: docker_build_go_app
+              id: docker_push_go_app
               input:
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
                 AutoPublishBuildInfo: "true"
