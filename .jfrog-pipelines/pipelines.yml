@@ -45,6 +45,19 @@ pipelines:
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:0.0.1"
             - task: docker_build@v0.0.1
               id: docker_build_go_app
+              rtIntegration: gh_int_tasks # artifactory integration for downloading task
+              input:
+                ResourceName: "go_app_gitrepo"
+                DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
+                DockerFileLocation: ""
+                DockerFileName: ""
+                OptionalParams: ""
+                AutoPublishBuildInfo: "true"
+                XrayScan: "true"
+                FailOnScan: "false"
+            - task: docker_push@v0.0.1
+              id: docker_build_go_app
+              rtIntegration: gh_int_tasks # artifactory integration for downloading task
               input:
                 ResourceName: "go_app_gitrepo"
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
