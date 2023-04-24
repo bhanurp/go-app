@@ -33,17 +33,17 @@ pipelines:
         configuration:
           inputResources:
             - name: go_app_gitrepo
-          integrations:
-            - name: {{ .Values.artIntegration }}
         execution:
           onExecute:
             - task: jfrog/docker_build@v0.0.1
               id: docker_build_go_app
+              rtIntegration:  {{ .Values.artIntegration }}
               input:
                 ResourceName: "go_app_gitrepo"
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
             - task: jfrog/docker_push@v0.0.1
               id: docker_push_go_app
+              rtIntegration:  {{ .Values.artIntegration }}
               input:
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
                 AutoPublishBuildInfo: "true"
