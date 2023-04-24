@@ -37,12 +37,12 @@ pipelines:
             - name: {{ .Values.artIntegration }}
         execution:
           onExecute:
-            - task: docker_build@v0.0.1
+            - task: jfrog/docker_build@v0.0.1
               id: docker_build_go_app
               input:
                 ResourceName: "go_app_gitrepo"
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
-            - task: docker_push@v0.0.1
+            - task: jfrog/docker_push@v0.0.1
               id: docker_push_go_app
               input:
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
