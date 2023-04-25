@@ -15,13 +15,6 @@ pipelines:
   - name: go_app
     configuration:
       jfrogCliVersion: 2
-      runtime:
-        type: image
-        image:
-          custom:
-            name: releases-docker.jfrog.io/jfrog/pipelines-u18node
-            tag: "16"
-            autoPull: true
       environmentVariables:
         readOnly:
           TASK_NAME: docker_build
