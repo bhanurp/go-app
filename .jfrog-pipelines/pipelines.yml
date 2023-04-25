@@ -26,6 +26,8 @@ pipelines:
         configuration:
           inputResources:
             - name: go_app_gitrepo
+          integrations:
+            - name: int_default_artifactory
         execution:
           onExecute:
             - task: jfrog/docker_build@v0.0.1
