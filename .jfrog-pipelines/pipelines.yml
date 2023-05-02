@@ -32,13 +32,11 @@ pipelines:
           onExecute:
             - task: jfrog/docker_build@v0.0.1
               id: docker_build_go_app
-              rtIntegration: int_default_artifactory_test
               input:
-                ResourceName: "go_app_gitrepo"
-                DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
+                resourceName: "go_app_gitrepo"
+                dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
             - task: jfrog/docker_push@v0.0.1
               id: docker_push_go_app
-              rtIntegration:  {{ .Values.artIntegration }}
               input:
                 DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
                 AutoPublishBuildInfo: "true"
