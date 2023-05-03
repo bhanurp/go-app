@@ -23,7 +23,7 @@ FROM golang:1.19-alpine as builder
 RUN echo $GO_APP
 
 # Create and change to the app directory.
-WORKDIR /app
+WORKDIR $GO_APP
 
 # Retrieve application dependencies.
 # This allows the container build to reuse cached dependencies.

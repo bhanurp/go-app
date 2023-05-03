@@ -36,7 +36,7 @@ pipelines:
               input:
                 resourceName: "go_app_gitrepo"
                 dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
-                optionalParams: --build-arg GO_APP=test
+                optionalParams: --build-arg GO_APP=/app
             - task: jfrog/docker_push@v0.0.1
               repository: pipelines-tasks-virtual
               id: docker_push_go_app
