@@ -30,7 +30,7 @@ pipelines:
             - name: int_default_artifactory
         execution:
           onExecute:
-            - task: jfrog/docker_build@v0.0.1
+            - task: docker_build@v0.0.1
               repository: pipelines-tasks-local
               id: docker_build_go_app
               input:
