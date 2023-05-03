@@ -33,7 +33,6 @@ pipelines:
             - task: jfrog/docker-build@v0.0.1
               repository: pipelines-tasks-virtual
               id: docker_build_go_app
-              dockerFileLocation:
               input:
                 resourceName: "go_app_gitrepo"
                 dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
