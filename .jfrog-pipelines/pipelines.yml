@@ -28,6 +28,7 @@ pipelines:
             - name: go_app_gitrepo
           integrations:
             - name: int_default_artifactory
+            - name: entplus_rt
         execution:
           onExecute:
             - task: jfrog/docker-build@v0.0.1
