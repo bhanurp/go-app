@@ -35,6 +35,8 @@ COPY . ./
 # Build the binary.
 RUN go build -v -o server
 
+RUN pwd
+
 RUN ls
 
 # Use the official Debian slim image for a lean production container.
