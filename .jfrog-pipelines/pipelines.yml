@@ -45,8 +45,8 @@ pipelines:
               repository: pipelines-tasks-virtual
               id: docker_push_go_app
               input:
-                dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
-                autoPublishBuildInfo: "true"
-                xrayScan: "true"
-                failOnScan: "false"
+                DockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
+                AutoPublishBuildInfo: "true"
+                XrayScan: "true"
+                FailOnScan: "false"
                 outputBuildInfoResourceName: "docker_build_info"
