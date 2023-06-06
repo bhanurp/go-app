@@ -57,17 +57,3 @@ pipelines:
                 xrayScan: "true"
                 failOnScan: "false"
                 outputBuildInfoResourceName: "docker_build_info"
-
-      postRun:
-        configuration:
-          integrations:
-            - name: {{.Values.pipeline.artifactory}}
-            - name: {{.Values.pipeline.jira}}
-            - name: {{.Values.pipeline.slack}}
-        execution:
-          onExecute:
-            - task: marvelution/build-notifier@v0.1.0
-              input:
-                artifactory: {{.Values.pipeline.artifactory}}
-                slack: {{.Values.pipeline.slack}}
-                jira: {{.Values.pipeline.jira}}
