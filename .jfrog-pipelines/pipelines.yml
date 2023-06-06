@@ -37,7 +37,6 @@ pipelines:
           onExecute:
             - task: jfrog/docker-build@v0.0.1
               repository: pipelines-tasks-virtual
-              rtIntegration: dev_artifactory
               id: docker_build_go_app
               input:
                 resourceName: "go_app_gitrepo"
