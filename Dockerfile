@@ -52,7 +52,7 @@ RUN mkdir -p /app
 RUN ls
 
 # Copy the binary to the production image from the builder stage.
-COPY --from=builder /app/server /app/server
+COPY --from=builder /go/app/server /app/server
 
 # Run the web service on container startup.
 CMD ["/app/server"]
