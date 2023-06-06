@@ -25,6 +25,17 @@ pipelines:
           TASK_NAME: docker_build
           TASK_VERSION: 0.0.1
           TASK_REPOSITORY: pipelines-tasks-local
+    postRun:
+      execution:
+        onExecute:
+          - printenv
+          - echo "Executing Post Run"
+          - task: jfrog/docker-build@v0.0.1
+            repository: pipelines-tasks-virtual
+            id: docker_build_go_app
+            input:
+              resourceName: "go_app_gitrepo"
+              dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
     steps:
       - name: test_docker_build
         type: Bash
@@ -52,3 +63,17 @@ pipelines:
                 xrayScan: "true"
                 failOnScan: "false"
                 outputBuildInfoResourceName: "docker_build_info"
+
+      postRun:
+        configuration:
+          integrations:
+            - name: {{.Values.pipeline.artifactory}}
+            - name: {{.Values.pipeline.jira}}
+            - name: {{.Values.pipeline.slack}}
+        execution:
+          onExecute:
+            - task: marvelution/build-notifier@v0.1.0
+              input:
+                artifactory: {{.Values.pipeline.artifactory}}
+                slack: {{.Values.pipeline.slack}}
+                jira: {{.Values.pipeline.jira}}
