@@ -31,6 +31,7 @@ pipelines:
         configuration:
           inputResources:
             - name: go_app_gitrepo
+          outputResources:
             - name: docker_build_info
           integrations:
             - name: int_default_artifactory
