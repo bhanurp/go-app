@@ -43,6 +43,8 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
     ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /app
+
 # Copy the binary to the production image from the builder stage.
 COPY --from=builder /app/server /app/server
 
