@@ -54,6 +54,11 @@ pipelines:
           onStart:
             - jf c show
           onExecute:
+            - task: jfrog/setup-go@0.1.0
+              repository: pipelines-tasks-virtual
+              id: install-go
+              input:
+                version: 1.19.5
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
               id: go_build_task
