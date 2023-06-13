@@ -54,7 +54,7 @@ pipelines:
           onStart:
             - jf c show
           onExecute:
-            - task: jfrog/setup-go@0.1.0
+            - task: jfrog/setup-go@v0.1.0
               repository: pipelines-tasks-virtual
               id: install-go
               input:
