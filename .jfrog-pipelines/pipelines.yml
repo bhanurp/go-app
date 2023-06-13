@@ -37,6 +37,8 @@ pipelines:
           TASK_NAME: docker_build
           TASK_VERSION: 0.0.1
           TASK_REPOSITORY: pipelines-tasks-local
+          JFROG_TASK_DEBUG: "true"
+          JFROG_CLI_LOG_LEVEL: debug
     steps:
       - name: test_docker_build
         type: Bash
