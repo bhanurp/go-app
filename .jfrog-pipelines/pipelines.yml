@@ -20,7 +20,7 @@ resources:
     type: GitRepo
     configuration:
       path: bhanurp/go-build
-      gitProvider: {{ .Values.gitProvider }}
+      gitProvider: {{ .Values.gitIntegration }}
       branches:
         include: ^{{ .Values.mainBranch }}$
       cloneProtocol: https
