@@ -25,20 +25,6 @@ pipelines:
           TASK_NAME: docker_build
           TASK_VERSION: 0.0.1
           TASK_REPOSITORY: pipelines-tasks-local
-    postRun:
-      execution:
-        onExecute:
-          - printenv
-          - echo "Executing Post Run"
-          - task: jfrog/docker-push@v0.0.2
-            repository: pipelines-tasks-virtual
-            id: docker_push_go_app
-            input:
-              dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
-              autoPublishBuildInfo: "true"
-              xrayScan: "true"
-              failOnScan: "false"
-              outputBuildInfoResourceName: "docker_build_info"
     steps:
       - name: test_docker_build
         type: Bash
