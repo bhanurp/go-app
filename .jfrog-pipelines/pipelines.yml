@@ -16,6 +16,18 @@ resources:
     configuration:
       sourceArtifactory: {{ .Values.artIntegration }}
 
+  - name: go_build_gitrepo
+    type: GitRepo
+    configuration:
+      path: bhanurp/go-build
+      gitProvider: {{ .Values.gitProvider }}
+      branches:
+        include: ^{{ .Values.mainBranch }}$
+      cloneProtocol: https
+      buildOn:
+        commit: true
+
+
 pipelines:
   - name: go_app
     configuration:
@@ -31,12 +43,24 @@ pipelines:
         configuration:
           inputResources:
             - name: go_app_gitrepo
+            - name: go_build_gitrepo
           outputResources:
             - name: docker_build_info
           integrations:
             - name: int_default_artifactory
         execution:
           onExecute:
+            - task: $res_go_build_gitrepo_resourcePath
+              repository: pipelines-tasks-virtual
+              id: go_build_task
+              input:
+                resourceName: go_build_gitrepo
+                executionLocation: ""
+                resolveRepository: go-virtual
+                outputLocation: ${step_tmp_dir}
+                outputFile: myapp
+                rtIntegrationName: int_default_artifactory
+                goCommand: ""
             - task: jfrog/docker-build@v0.0.1
               repository: pipelines-tasks-virtual
               id: docker_build_go_app
