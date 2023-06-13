@@ -49,6 +49,8 @@ pipelines:
           integrations:
             - name: int_default_artifactory
         execution:
+          onStart:
+            - jf c show
           onExecute:
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
