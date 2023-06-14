@@ -63,7 +63,7 @@ pipelines:
               repository: pipelines-tasks-virtual
               id: go_build_task
               input:
-                resourceName: go_build_gitrepo
+                resourceName: go_app_gitrepo
                 executionLocation: ""
                 resolveRepository: go-virtual
                 outputLocation: ${step_tmp_dir}
