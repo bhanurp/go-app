@@ -57,6 +57,7 @@ pipelines:
           inputResources:
             - name: go_app_gitrepo
             - name: go_build_gitrepo
+            - name: go_publish_gitrepo
           outputResources:
             - name: docker_build_info
           integrations:
