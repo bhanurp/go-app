@@ -101,7 +101,7 @@ pipelines:
               id: go_publish_task
               input:
                 targetRepository: go-local
-            - task: $res_build_publish_gitrepo_resourcePath
+            - task: $res_go_build_publish_gitrepo_resourcePath
               id: maven-publish-task
               input:
                 resourceName: gradle_app
