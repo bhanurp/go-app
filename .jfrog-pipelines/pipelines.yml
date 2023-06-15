@@ -27,6 +27,17 @@ resources:
       buildOn:
         commit: true
 
+  - name: go_publish_gitrepo
+    type: GitRepo
+    configuration:
+      path: bhanurp/go-publish
+      gitProvider: {{ .Values.gitIntegration }}
+      branches:
+        include: ^{{ .Values.mainBranch }}$
+      cloneProtocol: https
+      buildOn:
+        commit: true
+
 
 pipelines:
   - name: go_app
@@ -71,6 +82,11 @@ pipelines:
                 outputFile: myapp
                 rtIntegrationName: int_default_artifactory
                 goCommand: ""
+            - task: $res_go_publish_gitrepo_resourcePath
+              repository: pipelines-tasks-virtual
+              id: go_publish_task
+              input:
+                targetRepository: go-local
             - task: jfrog/docker-build@v0.0.1
               repository: pipelines-tasks-virtual
               id: docker_build_go_app
