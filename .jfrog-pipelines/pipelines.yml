@@ -104,7 +104,7 @@ pipelines:
             - task: $res_go_build_publish_gitrepo_resourcePath
               id: maven-publish-task
               input:
-                resourceName: gradle_app
+                resourceName: go_build_gitrepo
                 sourceLocation: ""
                 autoPublishBuildInfo: true
                 xrayScan: true
