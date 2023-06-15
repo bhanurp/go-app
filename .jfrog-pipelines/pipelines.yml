@@ -50,6 +50,7 @@ pipelines:
           TASK_REPOSITORY: pipelines-tasks-local
           JFROG_TASK_DEBUG: "true"
           JFROG_CLI_LOG_LEVEL: debug
+          buildStepName: test_docker_build
     steps:
       - name: test_docker_build
         type: Bash
@@ -62,9 +63,6 @@ pipelines:
             - name: docker_build_info
           integrations:
             - name: int_default_artifactory
-          environmentVariables:
-            readOnly:
-              buildStepName: test_docker_build
         execution:
           onStart:
             - jf c show
