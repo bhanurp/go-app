@@ -27,6 +27,17 @@ resources:
       buildOn:
         commit: true
 
+  - name: build_publish_gitrepo
+    type: GitRepo
+    configuration:
+      path: bhanurp/build-publish
+      gitProvider: gh_int_bhanu
+      branches:
+        include: main
+      cloneProtocol: https
+      buildOn:
+        commit: true
+
   - name: go_publish_gitrepo
     type: GitRepo
     configuration:
@@ -59,6 +70,7 @@ pipelines:
             - name: go_app_gitrepo
             - name: go_build_gitrepo
             - name: go_publish_gitrepo
+            - name: build_publish_gitrepo
           outputResources:
             - name: docker_build_info
           integrations:
@@ -89,6 +101,15 @@ pipelines:
               id: go_publish_task
               input:
                 targetRepository: go-local
+            - task: $res_build_publish_gitrepo_resourcePath
+              id: maven-publish-task
+              input:
+                resourceName: gradle_app
+                sourceLocation: ""
+                autoPublishBuildInfo: true
+                xrayScan: true
+                failOnScan:
+                retry: true
             - task: jfrog/docker-build@v0.0.1
               repository: pipelines-tasks-virtual
               id: docker_build_go_app
