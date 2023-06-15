@@ -62,6 +62,9 @@ pipelines:
             - name: docker_build_info
           integrations:
             - name: int_default_artifactory
+          environmentVariables:
+            readOnly:
+              buildStepName: test_docker_build
         execution:
           onStart:
             - jf c show
