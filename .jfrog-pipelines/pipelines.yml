@@ -80,7 +80,7 @@ pipelines:
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
           onExecute:
-            - task: jfrog/setup-go@v0.1.0
+            - task: jfrog/setup-rust@v0.1.0
               repository: pipelines-tasks-virtual
               id: install-go
               input:
