@@ -63,12 +63,10 @@ pipelines:
           JFROG_CLI_LOG_LEVEL: debug
           buildStepName: test_docker_build
     preRun:
-      configuration:
       execution:
         onExecute:
           - task: jfrog/setup-go@v0.1.0
     postRun:
-      configuration:
       execution:
         onExecute:
           - task: jfrog/setup-go@v0.1.0
