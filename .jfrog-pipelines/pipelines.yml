@@ -69,6 +69,8 @@ pipelines:
       execution:
         onExecute:
           - task: jfrog/setup-go@v0.1.0
+            input:
+              version: 1.19.5
     postRun:
       configuration:
         integrations:
@@ -76,6 +78,8 @@ pipelines:
       execution:
         onExecute:
           - task: jfrog/setup-go@v0.1.0
+            input:
+              version: 1.19.5
     steps:
       - name: test_docker_build
         type: Bash
