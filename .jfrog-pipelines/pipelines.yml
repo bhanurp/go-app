@@ -73,8 +73,8 @@ pipelines:
       configuration:
         integrations:
           - name: int_default_artifactory
-        onExecute:
-          - task: jfrog/setup-go@v0.1.0
+      onExecute:
+        - task: jfrog/setup-go@v0.1.0
     steps:
       - name: test_docker_build
         type: Bash
