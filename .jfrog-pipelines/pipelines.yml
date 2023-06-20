@@ -63,11 +63,16 @@ pipelines:
           JFROG_CLI_LOG_LEVEL: debug
           buildStepName: test_docker_build
     preRun:
+      configuration:
+        integrations:
+          - name: int_default_artifactory
       execution:
         onExecute:
           - task: jfrog/setup-go@v0.1.0
     postRun:
-      execution:
+      configuration:
+        integrations:
+          - name: int_default_artifactory
         onExecute:
           - task: jfrog/setup-go@v0.1.0
     steps:
