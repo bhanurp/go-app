@@ -197,3 +197,149 @@ pipelines:
                 xrayScan: "true"
                 failOnScan: "false"
                 outputBuildInfoResourceName: "docker_build_info"
+  - name: test_go_app_build_publish
+    configuration:
+      jfrogCliVersion: 2
+      environmentVariables:
+        readOnly:
+          TASK_NAME: docker_build
+          TASK_VERSION: 0.0.1
+          TASK_REPOSITORY: pipelines-tasks-local
+          JFROG_TASK_DEBUG: "true"
+          JFROG_CLI_LOG_LEVEL: debug
+          buildStepName: test_docker_build
+    preRun:
+      configuration:
+        integrations:
+          - name: int_default_artifactory
+      execution:
+        onExecute:
+          - task: jfrog/setup-go@v0.1.0
+            input:
+              version: 1.19.5
+    postRun:
+      configuration:
+        integrations:
+          - name: int_default_artifactory
+      execution:
+        onExecute:
+          - task: jfrog/setup-go@v0.1.0
+            input:
+              version: 1.19.5
+    steps:
+      - name: test_go_build_and_publish
+        type: Bash
+        configuration:
+          inputResources:
+            - name: go_app_gitrepo
+            - name: go_build_gitrepo
+            - name: go_publish_gitrepo
+            - name: go_build_publish_gitrepo
+          outputResources:
+            - name: docker_build_info
+          integrations:
+            - name: int_default_artifactory
+        execution:
+          onStart:
+            - jf c show
+            - echo $IS_K8S_BUILD_PLANE
+          onExecute:
+            - task: jfrog/setup-go@v0.1.0
+              repository: pipelines-tasks-virtual
+              id: install-go
+              input:
+                version: 1.19.5
+            - task: $res_go_build_gitrepo_resourcePath
+              repository: pipelines-tasks-virtual
+              id: go_build_task
+              input:
+                resourceName: go_app_gitrepo
+                executionLocation: ""
+                resolveRepository: go-virtual
+                outputLocation: ${step_tmp_dir}
+                outputFile: myapp
+                rtIntegrationName: int_default_artifactory
+                goCommand: ""
+            - task: $res_go_publish_gitrepo_resourcePath
+              repository: pipelines-tasks-virtual
+              id: go_publish_task
+              input:
+                targetRepository: go-local
+            - task: $res_go_build_publish_gitrepo_resourcePath
+              id: maven-publish-task
+              input:
+                resourceName: go_build_gitrepo
+                sourceLocation: ""
+                autoPublishBuildInfo: true
+                xrayScan: true
+                failOnScan:
+                retry: true
+      - name: test_docker_build
+        type: Bash
+        configuration:
+          inputResources:
+            - name: go_app_gitrepo
+            - name: go_build_gitrepo
+            - name: go_publish_gitrepo
+            - name: go_build_publish_gitrepo
+          outputResources:
+            - name: docker_build_info
+          integrations:
+            - name: int_default_artifactory
+          inputSteps:
+            - name: test_go_build_and_publish
+        execution:
+          onStart:
+            - jf c show
+            - echo $IS_K8S_BUILD_PLANE
+          onExecute:
+            - task: jfrog/setup-go@v0.1.0
+              repository: pipelines-tasks-virtual
+              id: install-go
+              input:
+                version: 1.19.5
+            - task: jfrog/setup-rust@v0.1.0
+              repository: pipelines-tasks-virtual
+              id: install-rust
+              input:
+                version: 1.19.5
+            - task: $res_go_build_gitrepo_resourcePath
+              repository: pipelines-tasks-virtual
+              id: go_build_task
+              input:
+                resourceName: go_app_gitrepo
+                executionLocation: ""
+                resolveRepository: go-virtual
+                outputLocation: ${step_tmp_dir}
+                outputFile: myapp
+                rtIntegrationName: int_default_artifactory
+                goCommand: ""
+            - task: $res_go_publish_gitrepo_resourcePath
+              repository: pipelines-tasks-virtual
+              id: go_publish_task
+              input:
+                targetRepository: go-local
+            - task: $res_go_build_publish_gitrepo_resourcePath
+              id: maven-publish-task
+              input:
+                resourceName: go_build_gitrepo
+                sourceLocation: ""
+                autoPublishBuildInfo: true
+                xrayScan: true
+                failOnScan:
+                retry: true
+            - task: jfrog/docker-build@v0.0.1
+              repository: pipelines-tasks-virtual
+              id: docker_build_go_app
+              input:
+                resourceName: "go_app_gitrepo"
+                dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
+            - task: jfrog/docker-push@v0.0.2
+              repository: pipelines-tasks-virtual
+              id: docker_push_go_app
+              input:
+                dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
+                autoPublishBuildInfo: "true"
+                xrayScan: "true"
+                failOnScan: "false"
+                outputBuildInfoResourceName: "docker_build_info"
