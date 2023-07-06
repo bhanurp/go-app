@@ -98,11 +98,12 @@ pipelines:
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
           onExecute:
-            - task: jfrog/setup-go@v0.1.0
-              repository: pipelines-tasks-virtual
-              id: install-go
-              input:
-                version: 1.19.5
+            - pipe task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version="1.19.5"
+#            - task: jfrog/setup-go@v0.1.0
+#              repository: pipelines-tasks-virtual
+#              id: install-go
+#              input:
+#                version: 1.19.5
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
               id: go_build_task
