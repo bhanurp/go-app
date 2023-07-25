@@ -213,21 +213,21 @@ pipelines:
                 xrayScan: true
                 failOnScan:
                 retry: true
-            - task: jfrog/docker-build@v0.0.1
-              repository: pipelines-tasks-virtual
-              id: docker_build_go_app
-              input:
-                resourceName: go_app_gitrepo
-                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
-            - task: jfrog/docker-push@v0.0.2
-              repository: pipelines-tasks-virtual
-              id: docker_push_go_app
-              input:
-                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
-                autoPublishBuildInfo: "true"
-                xrayScan: "true"
-                failOnScan: "false"
-                outputBuildInfoResourceName: "docker_build_info"
+#            - task: jfrog/docker-build@v0.0.1
+#              repository: pipelines-tasks-virtual
+#              id: docker_build_go_app
+#              input:
+#                resourceName: go_app_gitrepo
+#                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
+#            - task: jfrog/docker-push@v0.0.2
+#              repository: pipelines-tasks-virtual
+#              id: docker_push_go_app
+#              input:
+#                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
+#                autoPublishBuildInfo: "true"
+#                xrayScan: "true"
+#                failOnScan: "false"
+#                outputBuildInfoResourceName: "docker_build_info"
   - name: test_go_app_build_publish
     configuration:
       jfrogCliVersion: 2
