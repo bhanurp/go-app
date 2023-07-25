@@ -177,7 +177,7 @@ pipelines:
           integrations:
             - name: int_default_artifactory
           inputSteps:
-            - name: test_go_build_and_publish
+            - name: test_xray_scan
         execution:
           onStart:
             - jf c show
