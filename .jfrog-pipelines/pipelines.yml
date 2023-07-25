@@ -177,7 +177,7 @@ pipelines:
           integrations:
             - name: int_default_artifactory
           inputSteps:
-            - name: test_xray_scan
+            - name: test_go_build_and_publish
         execution:
           onStart:
             - jf c show
@@ -188,11 +188,6 @@ pipelines:
             - task: jfrog/setup-go@v0.1.0
               repository: pipelines-tasks-virtual
               id: install-go
-              input:
-                version: 1.19.5
-            - task: jfrog/setup-rust@v0.1.0
-              repository: pipelines-tasks-virtual
-              id: install-rust
               input:
                 version: 1.19.5
             - task: $res_go_build_gitrepo_resourcePath
@@ -225,12 +220,12 @@ pipelines:
               id: docker_build_go_app
               input:
                 resourceName: "go_app_gitrepo"
-                dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
+                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
             - task: jfrog/docker-push@v0.0.2
               repository: pipelines-tasks-virtual
               id: docker_push_go_app
               input:
-                dockerImage: "pipeecosys1.jfrogdev.org/pipelines-docker/go-app:latest"
+                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
                 autoPublishBuildInfo: "true"
                 xrayScan: "true"
                 failOnScan: "false"
