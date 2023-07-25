@@ -49,6 +49,16 @@ resources:
       buildOn:
         commit: true
 
+  - name: xrayScanTask
+    type: GitRepo
+    configuration:
+      path: bhanurp/xray_scan
+      gitProvider: {{ .Values.gitIntegration }}
+      branches:
+        include: ^{{ .Values.mainBranch }}$
+      cloneProtocol: https
+      buildOn:
+        commit: true
 
 pipelines:
   - name: go_app
@@ -98,14 +108,14 @@ pipelines:
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
           onExecute:
-            - invoke_task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version=1.19.5
+            #- invoke_task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version=1.19.5
             - go version
             - which go
-#            - task: jfrog/setup-go@v0.1.0
-#              repository: pipelines-tasks-virtual
-#              id: install-go
-#              input:
-#                version: 1.19.5
+            - task: jfrog/setup-go@v0.1.0
+              repository: pipelines-tasks-virtual
+              id: install-go
+              input:
+                version: 1.19.5
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
               id: go_build_task
@@ -131,6 +141,26 @@ pipelines:
                 xrayScan: true
                 failOnScan:
                 retry: true
+      - name: test_xray_scan
+        type: Bash
+        configuration:
+          inputResources:
+            - name: xrayScanTask
+            - name: docker_build_info
+          integrations:
+            - name: int_default_artifactory
+          inputSteps:
+            - name: test_go_build_and_publish
+        execution:
+          onStart:
+            - echo "Running xray scan task"
+          onExecute:
+            - task: $res_{{ .Values.primaryResource }}_resourcePath
+              id: my-awesome-task
+              input:
+                inputResources: docker_build_info
+                outputResources:
+                failOnScan: true
       - name: test_docker_build
         type: Bash
         configuration:
