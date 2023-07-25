@@ -158,7 +158,7 @@ pipelines:
           onStart:
             - echo "Running xray scan task"
           onExecute:
-            - task: $res_{{ .Values.primaryResource }}_resourcePath
+            - task: $res_xrayScanTask_resourcePath
               id: my-awesome-task
               input:
                 inputResources: docker_build_info
