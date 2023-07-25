@@ -107,6 +107,9 @@ pipelines:
           onStart:
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
+            - task: jfrog/setup-go@v0.1.0
+              input:
+                version: 1.19.5
           onExecute:
             #- invoke_task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version=1.19.5
             - go version
