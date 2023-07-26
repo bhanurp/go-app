@@ -16,6 +16,11 @@ resources:
     configuration:
       sourceArtifactory: {{ .Values.artIntegration }}
 
+  - name: xray_scan_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: { { .Values.artIntegration } }
+
   - name: go_build_gitrepo
     type: GitRepo
     configuration:
@@ -165,7 +170,7 @@ pipelines:
               id: my-awesome-task
               input:
                 inputResources: docker_build_info
-                outputResources:
+                outputResources: xray_scan_info
                 failOnScan: true
       - name: test_docker_build
         type: Bash
