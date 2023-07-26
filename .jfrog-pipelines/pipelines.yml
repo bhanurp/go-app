@@ -158,6 +158,7 @@ pipelines:
         execution:
           onStart:
             - echo "Running xray scan task"
+            - echo "test pde commit"
             - jf c show
           onExecute:
             - task: $res_xrayScanTask_resourcePath
