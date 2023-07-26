@@ -19,7 +19,7 @@ resources:
   - name: xray_scan_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: { { .Values.artIntegration } }
+      sourceArtifactory: {{ .Values.artIntegration }}
 
   - name: go_build_gitrepo
     type: GitRepo
