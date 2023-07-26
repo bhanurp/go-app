@@ -164,6 +164,8 @@ pipelines:
             - name: xray_scan_info
         execution:
           onStart:
+            - echo $res_docker_build_info_buildName
+            - echo $res_docker_build_info_buildNumber
             - echo "Running xray scan task"
             - echo "test pde commit"
             - jf c show
