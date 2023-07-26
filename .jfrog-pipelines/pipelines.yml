@@ -63,6 +63,7 @@ resources:
 pipelines:
   - name: go_app
     configuration:
+      nodePool: k8s-dynamic-pool
       jfrogCliVersion: 2
       environmentVariables:
         readOnly:
@@ -94,8 +95,6 @@ pipelines:
       - name: test_go_build_and_publish
         type: Bash
         configuration:
-          nodePools:
-            - k8s-dynamic-pool
           inputResources:
             - name: go_app_gitrepo
             - name: go_build_gitrepo
@@ -149,8 +148,6 @@ pipelines:
       - name: test_xray_scan
         type: Bash
         configuration:
-          nodePools:
-            - k8s-dynamic-pool
           inputResources:
             - name: xrayScanTask
             - name: docker_build_info
@@ -172,8 +169,6 @@ pipelines:
       - name: test_docker_build
         type: Bash
         configuration:
-          nodePools:
-            - k8s-dynamic-pool
           inputResources:
             - name: go_app_gitrepo
             - name: go_build_gitrepo
