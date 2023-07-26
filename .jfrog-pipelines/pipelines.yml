@@ -157,6 +157,7 @@ pipelines:
         execution:
           onStart:
             - echo "Running xray scan task"
+            - jf c show
           onExecute:
             - task: $res_xrayScanTask_resourcePath
               id: my-awesome-task
