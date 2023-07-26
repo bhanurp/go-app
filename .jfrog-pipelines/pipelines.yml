@@ -63,7 +63,7 @@ resources:
 pipelines:
   - name: go_app
     configuration:
-      nodePool: k8s-dynamic-pool
+      nodePool: u16dynamic
       jfrogCliVersion: 2
       environmentVariables:
         readOnly:
