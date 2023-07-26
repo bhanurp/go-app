@@ -160,6 +160,8 @@ pipelines:
             - name: int_default_artifactory
           inputSteps:
             - name: test_go_build_and_publish
+          outputResources:
+            - name: xray_scan_info
         execution:
           onStart:
             - echo "Running xray scan task"
