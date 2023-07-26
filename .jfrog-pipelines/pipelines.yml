@@ -71,7 +71,7 @@ pipelines:
           TASK_VERSION: 0.0.1
           TASK_REPOSITORY: pipelines-tasks-local
           JFROG_TASK_DEBUG: "true"
-          JFROG_CLI_LOG_LEVEL: debug
+          #JFROG_CLI_LOG_LEVEL: debug
           buildStepName: test_docker_build
 #    preRun:
 #      configuration:
