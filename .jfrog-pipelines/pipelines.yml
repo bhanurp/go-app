@@ -173,7 +173,7 @@ pipelines:
             - task: $res_xrayScanTask_resourcePath
               id: my-awesome-task
               input:
-                inputResources: docker_build_info
+                buildInfoResource: docker_build_info
                 outputResources: xray_scan_info
                 failOnScan: true
       - name: test_docker_build
