@@ -166,7 +166,8 @@ pipelines:
           onStart:
             - echo $res_docker_build_info_buildName
             - echo $res_docker_build_info_buildNumber
-            - find_resource_variable "docker_build_info" buildName
+            - buildName=$(find_resource_variable "docker_build_info" buildName)
+            - echo $buildName
             - echo "Running xray scan task"
             - echo "test pde commit"
             - jf c show
