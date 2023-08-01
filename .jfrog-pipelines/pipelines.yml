@@ -30,7 +30,7 @@ resources:
         \"$or\": [
           {
             \"path\": {
-              \"$match\": \"*jfrog/xsc-service/\"\{{ .Values.version }}
+              \"$match\": \"*jfrog/xsc-service/0.0.130*\"
             } 
           }
         ]
