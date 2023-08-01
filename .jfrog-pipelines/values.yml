@@ -4,3 +4,4 @@ gitToken: gh_frogbot
 artIntegration: int_default_artifactory
 accessToken: jfrogPlatform
 gitIntegration: gh_int_bhanu
+version: 1.1.41
