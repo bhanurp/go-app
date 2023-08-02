@@ -129,8 +129,10 @@ pipelines:
                 version: 1.19.5
           onExecute:
             #- invoke_task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version=1.19.5
-            - TASK_VERSION="${res_go_app_gitrepo_gitTagName#?}"
+            - TASK_VERSION=$res_go_app_gitrepo_gitTagName
             - echo $TASK_VERSION
+            - TASK_VERSION_DEF= echo $res_go_app_gitrepo_gitTagName
+            - echo $TASK_VERSION_DEF
             - go version
             - which go
             - task: jfrog/setup-go@v0.1.0
