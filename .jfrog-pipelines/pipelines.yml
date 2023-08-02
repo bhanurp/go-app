@@ -103,6 +103,8 @@ pipelines:
           - name: int_default_artifactory
       execution:
         onExecute:
+          - echo $TASK_VERSION_TEST
+          - echo $TASK_VERSION_DEF
           - task: jfrog/setup-go@latest
             input:
               version: 1.19.5
@@ -115,6 +117,7 @@ pipelines:
             - name: go_build_gitrepo
             - name: go_publish_gitrepo
             - name: go_build_publish_gitrepo
+            - name: saveCache
           outputResources:
             - name: docker_build_info
           integrations:
@@ -129,9 +132,9 @@ pipelines:
                 version: 1.19.5
           onExecute:
             #- invoke_task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version=1.19.5
-            - TASK_VERSION_TEST=$res_go_app_gitrepo_gitTagName
+            - TASK_VERSION_TEST="test"
             - echo $TASK_VERSION_TEST
-            - TASK_VERSION_DEF= echo $res_go_app_gitrepo_gitTagName
+            - TASK_VERSION_DEF="def"
             - echo $TASK_VERSION_DEF
             - go version
             - which go
