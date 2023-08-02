@@ -88,15 +88,15 @@ pipelines:
           JFROG_TASK_DEBUG: "true"
           JFROG_CLI_LOG_LEVEL: ERROR
           buildStepName: test_docker_build
-    preRun:
-      configuration:
-        integrations:
-          - name: int_default_artifactory
-      execution:
-        onExecute:
-          - task: jfrog/setup-go@latest
-            input:
-              version: 1.19.5
+#    preRun:
+#      configuration:
+#        integrations:
+#          - name: int_default_artifactory
+#      execution:
+#        onExecute:
+#          - task: jfrog/setup-go@latest
+#            input:
+#              version: 1.19.5
     postRun:
       configuration:
         integrations:
@@ -162,7 +162,7 @@ pipelines:
               input:
                 gitResourceName: go_app_gitrepo
                 keyStrategy: checksum
-                pathToDependencies: ${GOMODCACHE}
+                pathToDependencies: $GOPATH/pkg/mod
                 rtIntegration: int_default_artifactory
                 cacheRepository: go-local
                 language: go
