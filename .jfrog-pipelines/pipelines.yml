@@ -164,7 +164,7 @@ pipelines:
               input:
                 gitResourceName: go_app_gitrepo
                 keyStrategy: checksum
-                pathToDependencies: $GOPATH/pkg/mod
+                pathToDependencies: $GOPATH/pkg/mod/
                 rtIntegration: int_default_artifactory
                 cacheRepository: cache-local
                 language: go
