@@ -69,7 +69,7 @@ resources:
     type: GitRepo
     configuration:
       path: bhanurp/save-cache
-      gitProvider: { { .Values.gitIntegration } }
+      gitProvider: {{ .Values.gitIntegration }}
       branches:
         include: ^{{ .Values.mainBranch }}$
       cloneProtocol: https
