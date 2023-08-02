@@ -160,11 +160,12 @@ pipelines:
               repository: pipelines-tasks-virtual
               id: save-go-cache
               input:
-                gitResourceName: go_build_gitrepo
+                gitResourceName: go_app_gitrepo
                 keyStrategy: checksum
                 pathToDependencies: $GOPATH/pkg/mod/
                 rtIntegration: int_default_artifactory
                 cacheRepository: go-local
+                language: go
 
             - task: $res_go_publish_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
