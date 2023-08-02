@@ -157,7 +157,7 @@ pipelines:
                 outputLocation: ${step_tmp_dir}
                 outputFile: myapp
                 rtIntegrationName: int_default_artifactory
-                goCommand: ""
+                goCommand: "build -o ${step_tmp_dir}/myapp -modcacherw"
             - task: $res_saveCache_resourcePath
               repository: pipelines-tasks-virtual
               id: save-go-cache
