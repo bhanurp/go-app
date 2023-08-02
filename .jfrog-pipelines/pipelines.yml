@@ -145,6 +145,8 @@ pipelines:
               id: install-go
               input:
                 version: 1.19.5
+            - echo $GOPATH
+            - echo $GOMODCACHE
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
               id: go_build_task
