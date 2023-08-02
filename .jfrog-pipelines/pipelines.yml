@@ -166,7 +166,7 @@ pipelines:
                 keyStrategy: checksum
                 pathToDependencies: $GOPATH/pkg/mod
                 rtIntegration: int_default_artifactory
-                cacheRepository: go-local
+                cacheRepository: cache-local
                 language: go
 
             - task: $res_go_publish_gitrepo_resourcePath
