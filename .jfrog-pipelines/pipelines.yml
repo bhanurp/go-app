@@ -131,7 +131,6 @@ pipelines:
               input:
                 version: 1.19.5
           onExecute:
-            #- invoke_task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version=1.19.5
             - TASK_VERSION_TEST="test"
             - echo $TASK_VERSION_TEST
             - TASK_VERSION_DEF="def"
@@ -157,7 +156,7 @@ pipelines:
                 outputLocation: ${step_tmp_dir}
                 outputFile: myapp
                 rtIntegrationName: int_default_artifactory
-                goCommand: "build -o ${step_tmp_dir}/myapp -modcacherw"
+                goCommand: "build -o .myapp -modcacherw"
             - task: $res_saveCache_resourcePath
               repository: pipelines-tasks-virtual
               id: save-go-cache
