@@ -136,7 +136,7 @@ pipelines:
             - echo $TASK_VERSION_TEST
             - TASK_VERSION_DEF="def"
             - echo $TASK_VERSION_DEF
-            - add_run_variables TASK_VERSION_DEF="def"
+            - add_run_variables "TASK_VERSION_DEF=${IS_K8S_BUILD_PLANE}"
             - add_run_variables TASK_VERSION_TEST="test"
             - go version
             - which go
