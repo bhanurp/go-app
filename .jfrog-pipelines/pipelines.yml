@@ -139,12 +139,13 @@ pipelines:
             - add_run_variables TASK_VERSION_TEST="test"
             - go version
             - which go
-            - task: jfrog/setup-go@v0.1.0
-              repository: pipelines-tasks-virtual
+            - task: jfrog/setup-go@latest
+              repository:
               id: install-go
+              rtIntegration:
               input:
-                version: 1.19.5
-            - echo $GOPATH
+                version: 1.
+            - echo $GOPATHx`
             - echo $GOMODCACHE
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
