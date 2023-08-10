@@ -140,11 +140,9 @@ pipelines:
             - go version
             - which go
             - task: jfrog/setup-go@latest
-              repository:
               id: install-go
-              rtIntegration:
               input:
-                version: 1.
+                version: 1.19.5
             - echo $GOPATHx`
             - echo $GOMODCACHE
             - task: $res_go_build_gitrepo_resourcePath
