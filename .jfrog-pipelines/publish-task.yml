@@ -41,7 +41,7 @@ pipelines:
             - pushd $res_{{ .Values.primaryResource }}_resourcePath
             - popd
             # Run publish task
-            - task: jfrog/publish-task@0.2.1
+            - task: jfrog/publish-task@v0.2.1
               id: publish-{{ .Values.taskName }}
               input:
                 path: $res_{{ .Values.primaryResource }}_resourcePath
