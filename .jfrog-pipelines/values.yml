@@ -7,12 +7,10 @@ gitIntegration: gh_int_bhanu
 version: 1.1.41
 
 #####
-
+pipelineName: go_app
 taskName: test_task
 primaryResource: publish_task
 gitProvider: gh_int_bhanu
 artifactory: int_default_artifactory # rename if the artifactory integration is different
-repoPath: bhanurp/go-app
-mainBranch: main
 protocol: https
 buildOnCommit: True

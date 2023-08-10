@@ -1,0 +1,21 @@
+name: test_task
+description: JFrog task for save-cache
+source: https://github.com/bhanurp/go-app
+labels:
+  - test
+input:
+  - name: gitResourceName
+    description: input resource git name for fetching lock files
+  - name: keyStrategy
+    description: strategy for forming a key for the cache
+  - name: pathToDependencies
+    description: path to the dependencies
+  - name: cacheRepository
+    description: artifactory repository name to store cache
+  - name: language
+    description: dependencies specific to language
+output:
+  - name: status
+    description: status message of the task
+execution:
+  - echo "test"
