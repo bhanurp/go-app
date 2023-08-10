@@ -46,6 +46,7 @@ pipelines:
               repository: pipelines-tasks-dev-remote
               input:
                 path: $res_{{ .Values.primaryResource }}_resourcePath
+                integration: {{ .Values.artIntegration }}
                 targetRepository: $TASK_REPOSITORY
                 taskName: $TASK_NAME
                 taskVersion: $TASK_VERSION
