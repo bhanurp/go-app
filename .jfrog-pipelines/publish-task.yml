@@ -33,7 +33,7 @@ pipelines:
             - name: {{ .Values.primaryResource }}
               trigger: false
           integrations:
-            - name: {{ .Values.artifactory }}
+            - name: {{ .Values.artIntegration }}
         execution:
           onExecute:
             # Make sure version was provided
