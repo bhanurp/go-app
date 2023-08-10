@@ -43,6 +43,7 @@ pipelines:
             # Run publish task
             - task: jfrog/publish-task@v0.2.1
               id: publish-{{ .Values.taskName }}
+              repository: pipelines-tasks-dev-remote
               input:
                 path: $res_{{ .Values.primaryResource }}_resourcePath
                 targetRepository: $TASK_REPOSITORY
