@@ -14,3 +14,4 @@ gitProvider: gh_int_bhanu
 artifactory: int_default_artifactory # rename if the artifactory integration is different
 protocol: https
 buildOnCommit: True
+publishOnCommit: True
