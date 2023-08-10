@@ -39,12 +39,6 @@ pipelines:
             # Make sure version was provided
             - test -n "$TASK_VERSION" -a "$TASK_VERSION" != "0.0.0"
             - pushd $res_{{ .Values.primaryResource }}_resourcePath
-            # Configure JFrog CLI
-            - jfrog npmc --repo-resolve $RESOLVE_REPO
-            # Install npm dependencies
-            - jfrog npm install
-            # Build task runnable script bundled with dependencies
-            - npm run dist
             - popd
             # Run publish task
             - task: jfrog/publish-task@0.2.0-dev
