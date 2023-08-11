@@ -36,17 +36,22 @@ pipelines:
             - name: {{ .Values.artIntegration }}
         execution:
           onExecute:
-            # Make sure version was provided
-            - test -n "$TASK_VERSION" -a "$TASK_VERSION" != "0.0.0"
-            - pushd $res_{{ .Values.primaryResource }}_resourcePath
+            - pushd $res_publish_task_test_gitrepo_resourcePath/publish-task
+            - jfrog npmc --repo-resolve $RESOLVE_REPO
+            - jfrog npm install
+            - npm run test
+            - npm run dist
             - popd
-            # Run publish task
+
+            # Create dummy task
+            - mkdir dummy-task
+            - cp -r $res_publish_task_test_gitrepo_resourcePath/publish-task/src/__tests__/__resources__/taskWithSourceAndDist/* dummy-task/
+
             - task: jfrog/publish-task@v0.2.1
               id: publish-{{ .Values.taskName }}
               repository: pipelines-tasks-dev-remote
               input:
                 path: $res_{{ .Values.primaryResource }}_resourcePath
-                integration: {{ .Values.artIntegration }}
                 targetRepository: $TASK_REPOSITORY
                 taskName: $TASK_NAME
                 taskVersion: $TASK_VERSION
