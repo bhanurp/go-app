@@ -36,12 +36,6 @@ pipelines:
             - name: {{ .Values.artIntegration }}
         execution:
           onExecute:
-            - pushd $res_publish_task_test_gitrepo_resourcePath
-            - jfrog npmc --repo-resolve $RESOLVE_REPO
-            - jfrog npm install
-            - npm run test
-            - npm run dist
-            - popd
             - task: jfrog/publish-task@v0.2.1
               id: publish-{{ .Values.taskName }}
               repository: pipelines-tasks-dev-remote
