@@ -116,6 +116,9 @@ pipelines:
         onExecute:
           - echo $TASK_VERSION_TEST
           - echo $TASK_VERSION_DEF
+          - task: jfrog/run-status@latest
+            id: pipe_run
+          - echo ${OUT_pipe_run_status}
           - task: jfrog/setup-go@latest
             input:
               version: 1.19.5
