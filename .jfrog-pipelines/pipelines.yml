@@ -155,7 +155,7 @@ pipelines:
               id: install-go
               input:
                 version: 1.19.5
-            - echo $GOPATHx`
+            - echo $GOPATH
             - echo $GOMODCACHE
             - task: $res_retrieveCache_resourcePath
               id: retrieve-go-cache
