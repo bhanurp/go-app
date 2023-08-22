@@ -76,6 +76,17 @@ resources:
       buildOn:
         commit: true
 
+  - name: retrieveCache
+    type: GitRepo
+    configuration:
+      path: bhanurp/retrieve-cache
+      gitProvider: {{ .Values.gitIntegration }}
+      branches:
+        include: ^{{ .Values.mainBranch }}$
+      cloneProtocol: https
+      buildOn:
+        commit: true
+
 pipelines:
   - name: go_app
     configuration:
@@ -118,6 +129,7 @@ pipelines:
             - name: go_publish_gitrepo
             - name: go_build_publish_gitrepo
             - name: saveCache
+            - name: retrieveCache
           outputResources:
             - name: docker_build_info
           integrations:
@@ -145,6 +157,14 @@ pipelines:
                 version: 1.19.5
             - echo $GOPATHx`
             - echo $GOMODCACHE
+            - task: $res_retrieveCache_resourcePath
+              id: retrieve-go-cache
+              input:
+                gitResourceName: go_app_gitrepo
+                keyStrategy: checksum
+                pathToDependencies: $GOPATH/pkg/mod
+                cacheRepository: cache-local
+                language: go
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
               id: go_build_task
