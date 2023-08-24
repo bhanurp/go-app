@@ -119,9 +119,22 @@ pipelines:
           - task: jfrog/run-status@latest
             id: pipe_run
           - echo ${OUT_pipe_run_status}
-          - task: jfrog/setup-go@latest
-            input:
-              version: 1.19.5
+          - |
+            if [ ${OUT_pipe_run_status} == "failure" ]; then
+              - task: jfrog/create-incident@v0.0.1
+                id: create_incident
+                input:
+                  apiKeysIntegration: {{ .Values.statusPage.integration }}
+                  componentID: {{ .Values.statusPage.componentId }}
+                  pageID: {{ .Values.statusPage.pageId }}
+            else
+              - task: jfrog/update-incident@v0.0.1
+                id: update_incident
+                input:
+                  apiKeysIntegration: {{ .Values.statusPage.integration }}
+                  componentID: {{ .Values.statusPage.componentId }}
+                  pageID: {{ .Values.statusPage.pageId }}
+            fi
     steps:
       - name: test_go_build_and_publish
         type: Bash

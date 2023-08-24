@@ -15,3 +15,11 @@ artifactory: int_default_artifactory # rename if the artifactory integration is 
 protocol: https
 buildOnCommit: True
 publishOnCommit: true
+
+statusPage:
+  integration: STATUS_PAGE
+  incidentName: Pipelines Master Builds are Failing
+  componentId: x4fssghc63nh
+  incidentStatus: investigating
+  incidentBody: "Build Failed"
+  pageId: g41nrwjr14hb
