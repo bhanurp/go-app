@@ -112,6 +112,7 @@ pipelines:
       configuration:
         integrations:
           - name: int_default_artifactory
+          - name: {{ .Values.statusPage.integration }}
       execution:
         onExecute:
           - echo $TASK_VERSION_TEST
