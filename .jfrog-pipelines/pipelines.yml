@@ -129,6 +129,7 @@ pipelines:
         onSuccess:
           - task: jfrog/update-incident@v0.0.1
             id: update_incident
+            condition: ${OUT_pipe_run_status} == "success"
             input:
               apiKeysIntegration: {{ .Values.statusPage.integration }}
               componentID: {{ .Values.statusPage.componentId }}
@@ -136,6 +137,7 @@ pipelines:
         onFailure:
           - task: jfrog/create-incident@v0.0.1
             id: create_incident
+            condition: ${OUT_pipe_run_status} == "failure"
             input:
               apiKeysIntegration: {{ .Values.statusPage.integration }}
               componentID: {{ .Values.statusPage.componentId }}
@@ -178,35 +180,35 @@ pipelines:
                 version: 1.19.5
             - echo $GOPATH
             - echo $GOMODCACHE
-            - task: $res_retrieveCache_resourcePath
-              id: retrieve-go-cache
-              input:
-                gitResourceName: go_app_gitrepo
-                keyStrategy: checksum
-                pathToDependencies: $GOPATH/pkg/mod
-                cacheRepository: cache-local
-                language: go
-            - task: $res_go_build_gitrepo_resourcePath
-              repository: pipelines-tasks-virtual
-              id: go_build_task
-              input:
-                resourceName: go_app_gitrepo
-                executionLocation: ""
-                resolveRepository: go-virtual
-                outputLocation: ${step_tmp_dir}
-                outputFile: myapp
-                rtIntegrationName: int_default_artifactory
-                goCommand: "go build -o myapp -modcacherw"
-            - task: $res_saveCache_resourcePath
-              repository: pipelines-tasks-virtual
-              id: save-go-cache
-              input:
-                gitResourceName: go_app_gitrepo
-                keyStrategy: checksum
-                pathToDependencies: $GOPATH/pkg/mod/
-                rtIntegration: int_default_artifactory
-                cacheRepository: cache-local
-                language: go
+#            - task: $res_retrieveCache_resourcePath
+#              id: retrieve-go-cache
+#              input:
+#                gitResourceName: go_app_gitrepo
+#                keyStrategy: checksum
+#                pathToDependencies: $GOPATH/pkg/mod
+#                cacheRepository: cache-local
+#                language: go
+#            - task: $res_go_build_gitrepo_resourcePath
+#              repository: pipelines-tasks-virtual
+#              id: go_build_task
+#              input:
+#                resourceName: go_app_gitrepo
+#                executionLocation: ""
+#                resolveRepository: go-virtual
+#                outputLocation: ${step_tmp_dir}
+#                outputFile: myapp
+#                rtIntegrationName: int_default_artifactory
+#                goCommand: "go build -o myapp -modcacherw"
+#            - task: $res_saveCache_resourcePath
+#              repository: pipelines-tasks-virtual
+#              id: save-go-cache
+#              input:
+#                gitResourceName: go_app_gitrepo
+#                keyStrategy: checksum
+#                pathToDependencies: $GOPATH/pkg/mod/
+#                rtIntegration: int_default_artifactory
+#                cacheRepository: cache-local
+#                language: go
 
             - task: $res_go_publish_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
