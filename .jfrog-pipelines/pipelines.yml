@@ -210,49 +210,49 @@ pipelines:
 #                cacheRepository: cache-local
 #                language: go
 
-            # - task: $res_go_publish_gitrepo_resourcePath
-            #   repository: pipelines-tasks-virtual
-            #   id: go_publish_task
-            #   input:
-            #     targetRepository: go-local
-            # - task: $res_go_build_publish_gitrepo_resourcePath
-            #   id: maven-publish-task
-            #   input:
-            #     resourceName: go_build_gitrepo
-            #     sourceLocation: ""
-            #     autoPublishBuildInfo: true
-            #     xrayScan: true
-            #     failOnScan:
-            #     retry: true
-      # - name: test_xray_scan
-      #   type: Bash
-      #   configuration:
-      #     inputResources:
-      #       - name: xrayScanTask
-      #       - name: docker_build_info
-      #     integrations:
-      #       - name: int_default_artifactory
-      #     inputSteps:
-      #       - name: test_go_build_and_publish
-      #     outputResources:
-      #       - name: xray_scan_info
-      #   execution:
-      #     onStart:
-      #       - echo $res_docker_build_info_buildName
-      #       - echo $res_docker_build_info_buildNumber
-      #       - buildName=$(find_resource_variable "docker_build_info" buildName)
-      #       - echo $buildName
-      #       - echo "Running xray scan task"
-      #       - echo "test pde commit"
-      #       - jf c show
-      #     onExecute:
-      #       - task: $res_xrayScanTask_resourcePath
-      #         id: my-awesome-task
-      #         input:
-      #           buildInfoResource: docker_build_info
-      #           outputResources: xray_scan_info
-      #           failOnScan: true
-      # - name: test_docker_build
+            - task: $res_go_publish_gitrepo_resourcePath
+              repository: pipelines-tasks-virtual
+              id: go_publish_task
+              input:
+                targetRepository: go-local
+            - task: $res_go_build_publish_gitrepo_resourcePath
+              id: maven-publish-task
+              input:
+                resourceName: go_build_gitrepo
+                sourceLocation: ""
+                autoPublishBuildInfo: true
+                xrayScan: true
+                failOnScan:
+                retry: true
+      - name: test_xray_scan
+        type: Bash
+        configuration:
+          inputResources:
+            - name: xrayScanTask
+            - name: docker_build_info
+          integrations:
+            - name: int_default_artifactory
+          inputSteps:
+            - name: test_go_build_and_publish
+          outputResources:
+            - name: xray_scan_info
+        execution:
+          onStart:
+            - echo $res_docker_build_info_buildName
+            - echo $res_docker_build_info_buildNumber
+            - buildName=$(find_resource_variable "docker_build_info" buildName)
+            - echo $buildName
+            - echo "Running xray scan task"
+            - echo "test pde commit"
+            - jf c show
+          onExecute:
+            - task: $res_xrayScanTask_resourcePath
+              id: my-awesome-task
+              input:
+                buildInfoResource: docker_build_info
+                outputResources: xray_scan_info
+                failOnScan: true
+      - name: test_docker_build
         type: Bash
         configuration:
           inputResources:
