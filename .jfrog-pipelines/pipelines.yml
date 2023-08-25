@@ -172,6 +172,7 @@ pipelines:
             - echo $TASK_VERSION_DEF
             - add_run_variables "TASK_VERSION_DEF=${IS_K8S_BUILD_PLANE}"
             - add_run_variables TASK_VERSION_TEST="test"
+            - exit 2
             - go version
             - which go
             - task: jfrog/setup-go@latest
