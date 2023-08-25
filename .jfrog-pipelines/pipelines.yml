@@ -174,7 +174,6 @@ pipelines:
             - add_run_variables TASK_VERSION_TEST="test"
             - go version
             - which go
-            - exit 2
             - task: jfrog/setup-go@latest
               id: install-go
               input:
