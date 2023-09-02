@@ -443,5 +443,3 @@ pipelines:
                 xrayScan: "true"
                 failOnScan: "false"
                 outputBuildInfoResourceName: "docker_build_info"
-          onComplete:
-            
