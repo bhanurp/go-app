@@ -414,7 +414,6 @@ pipelines:
                 outputFile: myapp
                 rtIntegrationName: int_default_artifactory
                 goCommand: ""
-              - echo ${OUT_go_build_task_variableName}
             - task: $res_go_publish_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
               id: go_publish_task
