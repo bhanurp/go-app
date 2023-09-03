@@ -188,6 +188,7 @@ pipelines:
                 pathToDependencies: $GOPATH/pkg/mod
                 cacheRepository: cache-local
                 language: go
+            - ls /root/go/pkg/mod
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
               id: go_build_task
