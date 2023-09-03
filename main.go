@@ -20,6 +20,7 @@ package main
 
 import (
 	"fmt"
+	_ "github.com/jroimartin/gocui"
 	"log"
 	"net/http"
 	"os"
