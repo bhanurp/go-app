@@ -119,7 +119,7 @@ pipelines:
           - echo $TASK_VERSION_DEF
           - task: jfrog/run-status@latest
             id: pipe_run
-            inputs:
+            input:
               stepFailure: true
         onSuccess:
           - task: jfrog/update-incident@v0.0.1
