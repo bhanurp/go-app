@@ -463,7 +463,7 @@ pipelines:
       configuration:
         integrations:
           - name: int_default_artifactory
-          - name: { { .Values.statusPage.integration } }
+          - name: {{ .Values.statusPage.integration }}
       execution:
         onExecute:
           - echo $TASK_VERSION_TEST
@@ -477,17 +477,17 @@ pipelines:
             id: update_incident
             condition: ${OUT_pipe_run_status} == "success"
             input:
-              apiKeysIntegration: { { .Values.statusPage.integration } }
-              componentID: { { .Values.statusPage.componentId } }
-              pageID: { { .Values.statusPage.pageId } }
+              apiKeysIntegration: {{ .Values.statusPage.integration }}
+              componentID: {{ .Values.statusPage.componentId }}
+              pageID: {{ .Values.statusPage.pageId }}
         onFailure:
           - task: jfrog/create-incident@v0.0.1
             id: create_incident
             condition: ${OUT_pipe_run_status} == "failure"
             input:
-              apiKeysIntegration: { { .Values.statusPage.integration } }
-              componentID: { { .Values.statusPage.componentId } }
-              pageID: { { .Values.statusPage.pageId } }
+              apiKeysIntegration: {{ .Values.statusPage.integration }}
+              componentID: {{ .Values.statusPage.componentId }}
+              pageID: {{ .Values.statusPage.pageId }}
     steps:
       - name: test_status_page_step_1
         type: Bash
