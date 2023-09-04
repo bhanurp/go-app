@@ -505,6 +505,8 @@ pipelines:
         configuration:
           integrations:
             - name: int_default_artifactory
+          inputSteps:
+            - name: test_status_page_step_1
         execution:
           onStart:
             - echo "Running Sample Step 2"
