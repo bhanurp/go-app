@@ -439,3 +439,76 @@ pipelines:
                 xrayScan: "true"
                 failOnScan: "false"
                 outputBuildInfoResourceName: "docker_build_info"
+  - name: test_status_page_tasks
+    configuration:
+      jfrogCliVersion: 2
+      environmentVariables:
+        readOnly:
+          TASK_NAME: docker_build
+          TASK_VERSION: 0.0.1
+          TASK_REPOSITORY: pipelines-tasks-local
+          JFROG_TASK_DEBUG: "true"
+          JFROG_CLI_LOG_LEVEL: ERROR
+          buildStepName: test_docker_build
+    #    preRun:
+    #      configuration:
+    #        integrations:
+    #          - name: int_default_artifactory
+    #      execution:
+    #        onExecute:
+    #          - task: jfrog/setup-go@latest
+    #            input:
+    #              version: 1.19.5
+    postRun:
+      configuration:
+        integrations:
+          - name: int_default_artifactory
+          - name: { { .Values.statusPage.integration } }
+      execution:
+        onExecute:
+          - echo $TASK_VERSION_TEST
+          - echo $TASK_VERSION_DEF
+          - task: jfrog/run-status@latest
+            id: pipe_run
+            input:
+              stepFailure: true
+        onSuccess:
+          - task: jfrog/update-incident@v0.0.1
+            id: update_incident
+            condition: ${OUT_pipe_run_status} == "success"
+            input:
+              apiKeysIntegration: { { .Values.statusPage.integration } }
+              componentID: { { .Values.statusPage.componentId } }
+              pageID: { { .Values.statusPage.pageId } }
+        onFailure:
+          - task: jfrog/create-incident@v0.0.1
+            id: create_incident
+            condition: ${OUT_pipe_run_status} == "failure"
+            input:
+              apiKeysIntegration: { { .Values.statusPage.integration } }
+              componentID: { { .Values.statusPage.componentId } }
+              pageID: { { .Values.statusPage.pageId } }
+    steps:
+      - name: test_status_page_step_1
+        type: Bash
+        configuration:
+          integrations:
+            - name: int_default_artifactory
+        execution:
+          onStart:
+            - echo "Running Sample Step 1"
+            - jf c show
+          onExecute:
+            - echo "executed step 1"
+      - name: test_status_page_step_2
+        type: Bash
+        configuration:
+          integrations:
+            - name: int_default_artifactory
+        execution:
+          onStart:
+            - echo "Running Sample Step 2"
+            - jf c show
+          onExecute:
+            - echo "executed step 2"
+            - exit 0
