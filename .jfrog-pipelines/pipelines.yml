@@ -120,7 +120,7 @@ pipelines:
           - task: jfrog/run-status@latest
             id: pipe_run
             input:
-              stepFailure: false
+              stepFailure: true
         onSuccess:
           - task: jfrog/update-incident@v0.0.1
             id: update_incident
