@@ -119,13 +119,8 @@ pipelines:
           - echo $TASK_VERSION_DEF
           - task: jfrog/run-status@latest
             id: pipe_run
-          - echo ${OUT_pipe_run_status}
-          - |
-            if [ ${OUT_pipe_run_status} == "failure" ]; then
-              exit 2
-            else
-              exit 0
-            fi
+            inputs:
+              stepFailure: true
         onSuccess:
           - task: jfrog/update-incident@v0.0.1
             id: update_incident
@@ -188,7 +183,7 @@ pipelines:
                 pathToDependencies: $GOPATH/pkg/mod
                 cacheRepository: cache-local
                 language: go
-            - ls /root/go/pkg/mod
+            - ls /root/go/pkg/mod/
             - task: $res_go_build_gitrepo_resourcePath
               repository: pipelines-tasks-virtual
               id: go_build_task
