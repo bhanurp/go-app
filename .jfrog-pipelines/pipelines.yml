@@ -108,35 +108,35 @@ pipelines:
 #          - task: jfrog/setup-go@latest
 #            input:
 #              version: 1.19.5
-    postRun:
-      configuration:
-        integrations:
-          - name: int_default_artifactory
-          - name: {{ .Values.statusPage.integration }}
-      execution:
-        onExecute:
-          - echo $TASK_VERSION_TEST
-          - echo $TASK_VERSION_DEF
-          - task: jfrog/run-status@latest
-            id: pipe_run
-            input:
-              stepFailure: false
-        onSuccess:
-          - task: jfrog/update-incident@v0.0.1
-            id: update_incident
-            condition: ${OUT_pipe_run_status} == "success"
-            input:
-              apiKeysIntegration: {{ .Values.statusPage.integration }}
-              componentID: {{ .Values.statusPage.componentId }}
-              pageID: {{ .Values.statusPage.pageId }}
-        onFailure:
-          - task: jfrog/create-incident@v0.0.1
-            id: create_incident
-            condition: ${OUT_pipe_run_status} == "failure"
-            input:
-              apiKeysIntegration: {{ .Values.statusPage.integration }}
-              componentID: {{ .Values.statusPage.componentId }}
-              pageID: {{ .Values.statusPage.pageId }}
+#    postRun:
+#      configuration:
+#        integrations:
+#          - name: int_default_artifactory
+#          - name: {{ .Values.statusPage.integration }}
+#      execution:
+#        onExecute:
+#          - echo $TASK_VERSION_TEST
+#          - echo $TASK_VERSION_DEF
+#          - task: jfrog/run-status@latest
+#            id: pipe_run
+#            input:
+#              stepFailure: false
+#        onSuccess:
+#          - task: jfrog/update-incident@v0.0.1
+#            id: update_incident
+#            condition: ${OUT_pipe_run_status} == "success"
+#            input:
+#              apiKeysIntegration: {{ .Values.statusPage.integration }}
+#              componentID: {{ .Values.statusPage.componentId }}
+#              pageID: {{ .Values.statusPage.pageId }}
+#        onFailure:
+#          - task: jfrog/create-incident@v0.0.1
+#            id: create_incident
+#            condition: ${OUT_pipe_run_status} == "failure"
+#            input:
+#              apiKeysIntegration: {{ .Values.statusPage.integration }}
+#              componentID: {{ .Values.statusPage.componentId }}
+#              pageID: {{ .Values.statusPage.pageId }}
     steps:
       - name: test_go_build_and_publish
         type: Bash
@@ -450,15 +450,6 @@ pipelines:
           JFROG_TASK_DEBUG: "true"
           JFROG_CLI_LOG_LEVEL: ERROR
           buildStepName: test_docker_build
-    #    preRun:
-    #      configuration:
-    #        integrations:
-    #          - name: int_default_artifactory
-    #      execution:
-    #        onExecute:
-    #          - task: jfrog/setup-go@latest
-    #            input:
-    #              version: 1.19.5
     postRun:
       configuration:
         integrations:
