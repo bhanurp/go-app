@@ -161,6 +161,8 @@ pipelines:
             - hostname=`echo $step_url | cut -d / -f3`
             - echo $hostname
             - >-
+              curl https://$hostname/pipelines/api/v1/steps/$step_id --header "Authorization: Bearer $builder_api_token" | jq .pipelineId
+            - >-
               curl https://$hostname/pipelines/api/v1/pipelines/$run_id --header "Authorization: Bearer $builder_api_token"
             - task: jfrog/setup-go@v0.1.0
               input:
