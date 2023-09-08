@@ -158,7 +158,8 @@ pipelines:
             - echo $IS_K8S_BUILD_PLANE
             - echo "test"
             - echo $run_id
-            - echo $step_url
+            - hostname=`echo $step_url | cut -d / -f3`
+            - echo $hostname
             - task: jfrog/setup-go@v0.1.0
               input:
                 version: 1.19.5
