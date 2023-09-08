@@ -175,7 +175,7 @@ pipelines:
                 version: 1.19.5
             - echo $GOPATH
             - echo $GOMODCACHE
-            - echo $gitBranch
+            - echo {{gitBranch}}
             - task: $res_retrieveCache_resourcePath
               id: retrieve-go-cache
               input:
