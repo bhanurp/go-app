@@ -113,7 +113,7 @@ pipelines:
         environmentVariables:
           readOnly:
             JFROG_CLI_LOG_LEVEL:
-              default: debug
+              default: "debug"
 
         integrations:
           - name: int_default_artifactory
