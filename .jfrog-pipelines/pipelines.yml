@@ -407,39 +407,39 @@ pipelines:
               id: install-go
               input:
                 version: 1.19.5
-            - task: $res_go_build_gitrepo_resourcePath
-              repository: pipelines-tasks
-              rtIntegration: int_artifactory
-              id: go_build_task
-              input:
-                resourceName: go_app_gitrepo
-                executionLocation: ""
-                resolveRepository: go-virtual
-                outputLocation: ${step_tmp_dir}
-                outputFile: myapp
-                rtIntegrationName: int_default_artifactory
-                goCommand: ""
-            - task: $res_go_publish_gitrepo_resourcePath
-              repository: pipelines-tasks-virtual
-              id: go_publish_task
-              input:
-                targetRepository: go-local
-            - task: $res_go_build_publish_gitrepo_resourcePath
-              id: maven-publish-task
-              input:
-                resourceName: go_build_gitrepo
-                sourceLocation: ""
-                autoPublishBuildInfo: true
-                xrayScan: true
-                failOnScan:
-                retry: true
+#            - task: $res_go_build_gitrepo_resourcePath
+#              repository: pipelines-tasks
+#              rtIntegration: int_artifactory
+#              id: go_build_task
+#              input:
+#                resourceName: go_app_gitrepo
+#                executionLocation: ""
+#                resolveRepository: go-virtual
+#                outputLocation: ${step_tmp_dir}
+#                outputFile: myapp
+#                rtIntegrationName: int_default_artifactory
+#                goCommand: ""
+#            - task: $res_go_publish_gitrepo_resourcePath
+#              repository: pipelines-tasks-virtual
+#              id: go_publish_task
+#              input:
+#                targetRepository: go-local
+#            - task: $res_go_build_publish_gitrepo_resourcePath
+#              id: maven-publish-task
+#              input:
+#                resourceName: go_build_gitrepo
+#                sourceLocation: ""
+#                autoPublishBuildInfo: true
+#                xrayScan: true
+#                failOnScan:
+#                retry: true
             - task: jfrog/docker-build@v0.0.1
               repository: pipelines-tasks-virtual
               id: docker_build_go_app
               input:
                 resourceName: "go_app_gitrepo"
                 dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
-            - task: jfrog/docker-push@v0.0.2
+            - task: jfrog/docker-push@v0.0.3
               repository: pipelines-tasks-virtual
               id: docker_push_go_app
               input:
