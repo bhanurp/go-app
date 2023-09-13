@@ -434,7 +434,7 @@ pipelines:
 #                failOnScan:
 #                retry: true
             - task: jfrog/docker-build@v0.0.1
-              repository: pipelines-tasks-virtual
+              repository: pipelines-tasks-local
               id: docker_build_go_app
               input:
                 resourceName: "go_app_gitrepo"
