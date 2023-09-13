@@ -345,6 +345,8 @@ pipelines:
             - name: docker_build_info
           integrations:
             - name: int_default_artifactory
+          inputSteps:
+            - name: test_docker_build
         execution:
           onStart:
             - jf c show
@@ -395,8 +397,6 @@ pipelines:
             - name: docker_build_info
           integrations:
             - name: int_default_artifactory
-          inputSteps:
-            - name: test_go_build_and_publish
         execution:
           onStart:
             - jf c show
