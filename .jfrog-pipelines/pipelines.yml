@@ -439,8 +439,8 @@ pipelines:
               input:
                 resourceName: "go_app_gitrepo"
                 dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
-            - task: jfrog/docker-push@v0.0.3
-              repository: pipelines-tasks-virtual
+            - task: jfrog/docker_push@v0.0.3
+              repository: pipelines-tasks-local
               id: docker_push_go_app
               input:
                 dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
