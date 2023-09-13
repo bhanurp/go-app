@@ -110,11 +110,6 @@ pipelines:
 #              version: 1.19.5
     postRun:
       configuration:
-        environmentVariables:
-          readOnly:
-            JFROG_CLI_LOG_LEVEL:
-              default: "debug"
-
         integrations:
           - name: int_default_artifactory
           - name: {{ .Values.statusPage.integration }}
