@@ -507,6 +507,8 @@ pipelines:
             - name: int_default_artifactory
           inputSteps:
             - name: test_status_page_step_1
+          inputResources:
+            - name: go_app_gitrepo
         execution:
           onStart:
             - echo "Running Sample Step 2"
