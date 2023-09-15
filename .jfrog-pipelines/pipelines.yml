@@ -311,12 +311,12 @@ pipelines:
               id: docker_build_go_app
               input:
                 resourceName: go_app_gitrepo
-                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
+                dockerImage: "pipelineslnp1.jfrogdev.org/pipelines-docker/go-app:latest"
             - task: jfrog/docker-push@v0.0.2
               repository: pipelines-tasks-virtual
               id: docker_push_go_app
               input:
-                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
+                dockerImage: "pipelineslnp1.jfrogdev.org/pipelines-docker/go-app:latest"
                 autoPublishBuildInfo: "true"
                 xrayScan: "true"
                 failOnScan: "false"
@@ -438,12 +438,12 @@ pipelines:
               id: docker_build_go_app
               input:
                 resourceName: "go_app_gitrepo"
-                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
+                dockerImage: "pipelineslnp1.jfrogdev.org/pipelines-docker/go-app:latest"
             - task: jfrog/docker_push@v0.0.3
               repository: pipelines-tasks-local
               id: docker_push_go_app
               input:
-                dockerImage: "stg-repo.jfrog.info/pipelines-docker/go-app:latest"
+                dockerImage: "pipelineslnp1.jfrogdev.org/pipelines-docker/go-app:latest"
                 autoPublishBuildInfo: "true"
                 xrayScan: "true"
                 failOnScan: "false"
