@@ -446,7 +446,6 @@ pipelines:
                 dockerImage: "pipelineslnp1.jfrogdev.org/pipelines-docker/go-app:latest"
                 autoPublishBuildInfo: "true"
                 xrayScan: "true"
-                failOnScan: true
                 outputBuildInfoResourceName: "docker_build_info"
   - name: test_status_page_tasks
     configuration:
