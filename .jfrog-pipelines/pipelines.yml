@@ -433,12 +433,13 @@ pipelines:
 #                xrayScan: true
 #                failOnScan:
 #                retry: true
-            - task: jfrog/docker-build@v0.0.1
+            - task: jfrog/docker_build@v0.0.1
               repository: pipelines-tasks-local
               id: docker_build_go_app
               input:
                 resourceName: "go_app_gitrepo"
                 dockerImage: "pipelineslnp1.jfrogdev.org/pipelines-docker/go-app:latest"
+                additionalTags: "latest"
             - task: jfrog/docker_push@v0.0.3
               repository: pipelines-tasks-local
               id: docker_push_go_app
