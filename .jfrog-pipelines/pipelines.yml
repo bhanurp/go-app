@@ -439,7 +439,7 @@ pipelines:
               input:
                 resourceName: "go_app_gitrepo"
                 dockerImage: "pipelineslnp1.jfrogdev.org/pipelines-docker/go-app:latest"
-                additionalTags: "latest"
+                additionalTags: "memphis"
             - task: jfrog/docker_push@v0.0.3
               repository: pipelines-tasks-local
               id: docker_push_go_app
