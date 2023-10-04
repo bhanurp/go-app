@@ -333,49 +333,49 @@ pipelines:
           JFROG_CLI_LOG_LEVEL: debug
           buildStepName: test_docker_build
     steps:
-      - name: test_go_build_and_publish
-        type: Bash
-        configuration:
-          inputResources:
-            - name: go_app_gitrepo
-            - name: go_build_gitrepo
-            - name: go_publish_gitrepo
-            - name: go_build_publish_gitrepo
-          outputResources:
-            - name: docker_build_info
-          integrations:
-            - name: int_default_artifactory
-          inputSteps:
-            - name: test_docker_build
-        execution:
-          onStart:
-            - jf c show
-            - echo $IS_K8S_BUILD_PLANE
-          onExecute:
-            - invoke_task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version=1.19.5
-            - go version
-            - which go
-#            - task: jfrog/setup-go@v0.1.0
-#              repository: pipelines-tasks-virtual
-#              id: install-go
-#              input:
-#                version: 1.19.5
-            - task: $res_go_build_gitrepo_resourcePath
-              repository: pipelines-tasks-virtual
-              id: go_build_task
-              input:
-                resourceName: go_app_gitrepo
-                executionLocation: ""
-                resolveRepository: go-virtual
-                outputLocation: ${step_tmp_dir}
-                outputFile: myapp
-                rtIntegrationName: int_default_artifactory
-                goCommand: ""
-            - task: $res_go_publish_gitrepo_resourcePath
-              repository: pipelines-tasks-virtual
-              id: go_publish_task
-              input:
-                targetRepository: go-local
+#       - name: test_go_build_and_publish
+#         type: Bash
+#         configuration:
+#           inputResources:
+#             - name: go_app_gitrepo
+#             - name: go_build_gitrepo
+#             - name: go_publish_gitrepo
+#             - name: go_build_publish_gitrepo
+#           outputResources:
+#             - name: docker_build_info
+#           integrations:
+#             - name: int_default_artifactory
+#           inputSteps:
+#             - name: test_docker_build
+#         execution:
+#           onStart:
+#             - jf c show
+#             - echo $IS_K8S_BUILD_PLANE
+#           onExecute:
+#             - invoke_task --name jfrog/setup-go@v0.1.0 --repository pipelines-tasks-virtual --id install-go --arg version=1.19.5
+#             - go version
+#             - which go
+# #            - task: jfrog/setup-go@v0.1.0
+# #              repository: pipelines-tasks-virtual
+# #              id: install-go
+# #              input:
+# #                version: 1.19.5
+#             - task: $res_go_build_gitrepo_resourcePath
+#               repository: pipelines-tasks-virtual
+#               id: go_build_task
+#               input:
+#                 resourceName: go_app_gitrepo
+#                 executionLocation: ""
+#                 resolveRepository: go-virtual
+#                 outputLocation: ${step_tmp_dir}
+#                 outputFile: myapp
+#                 rtIntegrationName: int_default_artifactory
+#                 goCommand: ""
+#             - task: $res_go_publish_gitrepo_resourcePath
+#               repository: pipelines-tasks-virtual
+#               id: go_publish_task
+#               input:
+#                 targetRepository: go-local
 #            - task: $res_go_build_publish_gitrepo_resourcePath
 #              id: maven-publish-task
 #              input:
@@ -399,6 +399,7 @@ pipelines:
             - name: int_default_artifactory
         execution:
           onStart:
+            - exit 1
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
           onExecute:
