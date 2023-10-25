@@ -401,6 +401,7 @@ pipelines:
           onStart:
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
+            - exit 1
           onExecute:
             - task: jfrog/setup-go@v0.1.0
               repository: pipelines-tasks-virtual
