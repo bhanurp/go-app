@@ -514,6 +514,7 @@ pipelines:
           onStart:
             - echo "Running Sample Step 2"
             - jf c show
+            - exit 1
           onExecute:
             - echo "executed step 2"
             - exit 0
