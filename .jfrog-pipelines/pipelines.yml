@@ -498,6 +498,7 @@ pipelines:
           onStart:
             - echo "Running Sample Step 1"
             - jf c show
+            - exit 1
           onExecute:
             - echo "executed step 1"
       - name: test_status_page_step_2
