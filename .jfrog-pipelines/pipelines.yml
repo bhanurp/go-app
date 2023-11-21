@@ -511,7 +511,7 @@ pipelines:
             - name: go_app_gitrepo
         execution:
           onStart:
-            - exit 0
+            - exit 1
             - echo "Running Sample Step 2"
             - jf c show
           onExecute:
