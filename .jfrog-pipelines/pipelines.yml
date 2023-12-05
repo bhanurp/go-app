@@ -444,7 +444,7 @@ pipelines:
               repository: pipelines-tasks-local
               id: docker_push_go_app
               input:
-                dockerImage: "pipelineslnp1.jfrogdev.org/pipelines-docker/go-app:latest"
+                dockerImage: "pipelineslnp1.jfrogdev.org/bhanu-docker/go-app:latest"
                 autoPublishBuildInfo: "true"
                 xrayScan: "true"
                 outputBuildInfoResourceName: "docker_build_info"
