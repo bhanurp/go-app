@@ -398,7 +398,6 @@ pipelines:
             - name: int_default_artifactory
         execution:
           onStart:
-            - exit 0
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
           onExecute:
