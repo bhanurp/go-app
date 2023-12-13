@@ -233,6 +233,7 @@ pipelines:
           inputResources:
             - name: xrayScanTask
             - name: docker_build_info
+            - name: go_app_gitrepo
           integrations:
             - name: int_default_artifactory
           inputSteps:
