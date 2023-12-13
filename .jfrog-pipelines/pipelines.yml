@@ -257,6 +257,7 @@ pipelines:
                 failOnScan: true
           onComplete:
             - echo ${OUT_myXray_XRAY_URL}
+            - pushd ${res_go_build_gitrepo_resourcePath}
             - git switch main
             - touch test.txt
             - cat "aaa" > test.txt
