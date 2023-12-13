@@ -250,11 +250,13 @@ pipelines:
             - jf c show
           onExecute:
             - task: $res_xrayScanTask_resourcePath
-              id: my-awesome-task
+              id: myXray
               input:
                 buildInfoResource: docker_build_info
                 outputResources: xray_scan_info
                 failOnScan: true
+          onComplete:
+            - echo ${OUT_myXray_task_XRAY_URL}
       - name: test_docker_build
         type: Bash
         configuration:
