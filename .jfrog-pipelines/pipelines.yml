@@ -257,6 +257,12 @@ pipelines:
                 failOnScan: true
           onComplete:
             - echo ${OUT_myXray_XRAY_URL}
+            - git switch main
+            - touch test.txt
+            - cat "aaa" > test.txt
+            - git add .
+            - git commit -m "test file"
+            - git push origin main
       - name: test_docker_build
         type: Bash
         configuration:
