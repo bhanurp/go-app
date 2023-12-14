@@ -298,7 +298,7 @@ pipelines:
                 executionLocation: ""
                 resolveRepository: go-virtual
                 outputLocation: ${step_tmp_dir}
-                outputFile: myapp
+                outputFile: jftest
                 rtIntegrationName: int_default_artifactory
                 goCommand: ""
             - task: $res_go_publish_gitrepo_resourcePath
