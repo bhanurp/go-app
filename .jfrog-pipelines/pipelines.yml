@@ -283,8 +283,10 @@ pipelines:
           onStart:
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
+            - update_run_description "updated run descr from onStart section"
           onExecute:
             - write_output docker_build_info buildName=${JFROG_CLI_BUILD_NAME} buildNumber=${JFROG_CLI_BUILD_NUMBER}
+            - - update_run_description "updated run descr from onExecute section"
             - task: jfrog/setup-go@v0.1.0
               repository: pipelines-tasks-virtual
               id: install-go
