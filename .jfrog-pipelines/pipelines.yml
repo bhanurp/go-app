@@ -545,7 +545,7 @@ pipelines:
         configuration:
           integrations:
             - name: int_default_artifactory
-            - name: { { .Values.statusPage.integration } }
+            - name: {{ .Values.statusPage.integration }}
         execution:
           onExecute:
             - task: jfrog/run-status@latest
