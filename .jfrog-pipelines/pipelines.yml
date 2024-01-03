@@ -527,3 +527,28 @@ pipelines:
           onExecute:
             - echo "executed step 2"
             - exit 0
+  - name: test_task_on_windows
+    configuration:
+      jfrogCliVersion: 2
+      nodePool: win_2019
+      environmentVariables:
+        readOnly:
+          TASK_NAME: docker_build
+          TASK_VERSION: 0.0.1
+          TASK_REPOSITORY: pipelines-tasks-local
+          JFROG_TASK_DEBUG: "true"
+          JFROG_CLI_LOG_LEVEL: ERROR
+          buildStepName: test_docker_build
+    steps:
+      - name: test_windows
+        type: Powershell
+        configuration:
+          integrations:
+            - name: int_default_artifactory
+            - name: { { .Values.statusPage.integration } }
+        execution:
+          onExecute:
+            - task: jfrog/run-status@latest
+              id: pipe_run
+              input:
+                stepFailure: true
