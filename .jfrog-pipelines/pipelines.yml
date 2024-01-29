@@ -450,6 +450,15 @@ pipelines:
               input:
                 resourceName: "go_app_gitrepo"
                 dockerImage: "pipelineslnp1.jfrogdev.org/bhanu-docker/go-app:latest"
+            - task: $res_go_build_publish_gitrepo_resourcePath
+              id: build-publish-task
+              input:
+                gitResourceName: go_build_gitrepo
+                sourceLocation: ""
+                autoPublishBuildInfo: true
+                xrayScan: true
+                failOnScan:
+                retry: true
             - task: jfrog/docker_push@v0.0.3
               repository: pipelines-tasks-local
               id: docker_push_go_app
