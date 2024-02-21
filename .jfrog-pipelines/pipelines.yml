@@ -413,7 +413,7 @@ pipelines:
           onStart:
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
-            - export SLACK_MESSAGE="this is a test \n message"
+            - export SLACK_MESSAGE=$(echo 'this is a test \"\n\" message')
             - task: jfrog/slack-notify@v0.1.0
               input:
                 slackIntegration: "slack_approval"
