@@ -418,7 +418,7 @@ pipelines:
             - task: jfrog/slack-notify@v0.1.0
               input:
                 slackIntegration: "slack_approval"
-                message: "$SLACK_MESSAGE"
+                message: $SLACK_MESSAGE
           onExecute:
             - task: jfrog/setup-go@v0.1.0
               repository: pipelines-tasks-virtual
