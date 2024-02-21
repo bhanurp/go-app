@@ -408,6 +408,7 @@ pipelines:
             - name: docker_build_info
           integrations:
             - name: int_default_artifactory
+            - name: slack_approval
         execution:
           onStart:
             - jf c show
