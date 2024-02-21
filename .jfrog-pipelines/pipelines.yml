@@ -413,10 +413,11 @@ pipelines:
           onStart:
             - jf c show
             - echo $IS_K8S_BUILD_PLANE
+            - export SLACK_MESSAGE="this is a test \n message"
             - task: jfrog/slack-notify@v0.1.0
               input:
                 slackIntegration: "slack_approval"
-                message: "notification message \\n user \\n test"
+                message: "$SLACK_MESSAGE"
           onExecute:
             - task: jfrog/setup-go@v0.1.0
               repository: pipelines-tasks-virtual
