@@ -416,6 +416,7 @@ pipelines:
             - |
               echo "message to \
                slack" > message_to_slack
+            - echo "second line" >> message_to_slack
             - export SLACK_MESSAGE=$(cat message_to_slack)
             - task: jfrog/slack-notify@v0.1.0
               input:
