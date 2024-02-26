@@ -418,7 +418,15 @@ pipelines:
                slack" > message_to_slack
             - echo "second line" >> message_to_slack
             - export SLACK_MESSAGE=$(cat message_to_slack)
-            - message=$'hello\nworld'
+            - message_to_slack=$'hi\nmy name is alex'
+            - task: jfrog/release-bundle@v1.0.2
+              id: my-awesome-task
+              input:
+                jfrogPlatformToken: jpdPlatform
+                name: test_bhanu_rb
+                version: 3.0.0
+                sourceAQL: releaseBundleAQL
+                signing: signing_int_rb
             - task: jfrog/slack-notify@v0.1.0
               input:
                 slackIntegration: "slack_approval"
